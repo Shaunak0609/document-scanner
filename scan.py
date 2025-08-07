@@ -56,5 +56,5 @@ cv2.waitKey(0)
 scanned_pil = Image.fromarray(warped)
 
 # Save as PDF
-scanned_pil.save("C:\\Users\\shaun\\Downloads\\scanned_output.pdf")
+scanned_pil.save("your file path")
 print("Saved as scanned_output.pdf")
