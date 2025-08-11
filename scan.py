@@ -30,8 +30,7 @@ cnts = sorted(cnts, key = cv2.contourArea, reverse = True)[:5]
 for c in cnts:
 	peri = cv2.arcLength(c, True)
 	approx = cv2.approxPolyDP(c, 0.02 * peri, True)
-	# if our approximated contour has four points, then we
-	# can assume that we have found our screen
+	# check to see if our approximated contour has four points
 	if len(approx) == 4:
 		screenCnt = approx
 		break
@@ -41,8 +40,7 @@ for c in cnts:
 # apply the four point transform to obtain a top-down
 # view of the original image
 warped = four_point_transform(orig, screenCnt.reshape(4, 2) * ratio)
-# convert the warped image to grayscale, then threshold it
-# to give it that 'black and white' paper effect
+# convert the warped image to grayscale, and using threshold it gives the black and white effect
 warped = cv2.cvtColor(warped, cv2.COLOR_BGR2GRAY)
 T = threshold_local(warped, 11, offset = 10, method = "gaussian")
 warped = (warped > T).astype("uint8") * 255
